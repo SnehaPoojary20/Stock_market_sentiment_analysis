@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BarChart2, MessageSquare, FileText, Upload, Home } from 'lucide-react';
+import { BarChart2, MessageSquare, FileText, Upload, Home, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
     <nav className="p-4 flex flex-col gap-2">
       <div className="flex items-center gap-3 mb-6 px-2">
         <div className="bg-primary rounded-md p-1">
-          <BarChart2 className="text-primary-foreground h-6 w-6" />
+          <TrendingUp className="text-primary-foreground h-6 w-6" />
         </div>
         <h1 className="text-xl font-bold">MarketMood</h1>
       </div>
