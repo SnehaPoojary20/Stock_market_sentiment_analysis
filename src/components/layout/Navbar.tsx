@@ -39,6 +39,7 @@ const Navbar: React.FC = () => {
         <div className="bg-primary rounded-md p-1">
           <TrendingUp className="text-primary-foreground h-6 w-6" />
         </div>
+        <img src="/logo.png" alt="MarketMood Logo" className="h-8 w-auto" />
         <h1 className="text-xl font-bold">MarketMood</h1>
       </div>
       
