@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Upload, FileText, BarChart2 } from 'lucide-react';
+import { toast } from "sonner";
 import Layout from '@/components/layout/Layout';
 import { PieChart, Pie, ResponsiveContainer, Cell, Legend, Tooltip } from 'recharts';
-import sentimentData from '@/data/sentimentData.json';
+import { getRandomSentimentResult, initializeFirestore, SentimentResult } from '@/services/firebaseService';
 
 const SentimentAnalysis: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any | null>(null);
+  const [result, setResult] = useState<SentimentResult | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    const initializeData = async () => {
+      await initializeFirestore();
+      setIsInitialized(true);
+    };
+
+    initializeData();
+  }, []);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -29,13 +40,21 @@ const SentimentAnalysis: React.FC = () => {
     
     setLoading(true);
     
-    // Simulate API call but use our dataset
-    setTimeout(() => {
-      // Get a random result from our dataset
-      const randomIndex = Math.floor(Math.random() * sentimentData.results.length);
-      setResult(sentimentData.results[randomIndex]);
+    try {
+      const sentimentResult = await getRandomSentimentResult();
+      
+      if (sentimentResult) {
+        setResult(sentimentResult);
+        toast.success("File analyzed successfully");
+      } else {
+        toast.error("No results found");
+      }
+    } catch (error) {
+      console.error("Error analyzing file:", error);
+      toast.error("Error analyzing file");
+    } finally {
       setLoading(false);
-    }, 2000);
+    }
   };
 
   const handleTextAnalysis = async () => {
@@ -43,13 +62,21 @@ const SentimentAnalysis: React.FC = () => {
     
     setLoading(true);
     
-    // Simulate API call but use our dataset
-    setTimeout(() => {
-      // Get a random result from our dataset
-      const randomIndex = Math.floor(Math.random() * sentimentData.results.length);
-      setResult(sentimentData.results[randomIndex]);
+    try {
+      const sentimentResult = await getRandomSentimentResult();
+      
+      if (sentimentResult) {
+        setResult(sentimentResult);
+        toast.success("Text analyzed successfully");
+      } else {
+        toast.error("No results found");
+      }
+    } catch (error) {
+      console.error("Error analyzing text:", error);
+      toast.error("Error analyzing text");
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -95,7 +122,7 @@ const SentimentAnalysis: React.FC = () => {
                   
                   <Button 
                     onClick={handleFileUpload} 
-                    disabled={!file || loading}
+                    disabled={!file || loading || !isInitialized}
                     className="flex items-center gap-2"
                   >
                     {loading ? (
@@ -131,7 +158,7 @@ const SentimentAnalysis: React.FC = () => {
                   
                   <Button 
                     onClick={handleTextAnalysis} 
-                    disabled={!text || loading}
+                    disabled={!text || loading || !isInitialized}
                     className="flex items-center gap-2"
                   >
                     {loading ? (

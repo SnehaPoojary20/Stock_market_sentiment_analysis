@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Shield, ShieldAlert, FileText } from 'lucide-react';
+import { toast } from "sonner";
 import Layout from '@/components/layout/Layout';
-import fakeNewsData from '@/data/fakeNewsData.json';
+import { getRandomFakeNewsArticle, initializeFirestore, FakeNewsArticle } from '@/services/firebaseService';
 
 const FakeNewsDetection: React.FC = () => {
   const [newsText, setNewsText] = useState('');
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<{
-    verdict: 'real' | 'fake';
-    confidence: number;
-    explanation: string;
-    factors: Array<{factor: string, impact: 'high' | 'medium' | 'low'}>;
-  } | null>(null);
+  const [result, setResult] = useState<FakeNewsArticle | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Initialize Firebase on component mount
+  useEffect(() => {
+    const initializeData = async () => {
+      await initializeFirestore();
+      setIsInitialized(true);
+    };
+
+    initializeData();
+  }, []);
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewsText(event.target.value);
@@ -25,13 +33,22 @@ const FakeNewsDetection: React.FC = () => {
     
     setLoading(true);
     
-    // Simulate API call but use our dataset
-    setTimeout(() => {
-      // Get a random article from our dataset
-      const randomIndex = Math.floor(Math.random() * fakeNewsData.articles.length);
-      setResult(fakeNewsData.articles[randomIndex]);
+    try {
+      // Get data from Firebase
+      const fakeNewsArticle = await getRandomFakeNewsArticle();
+      
+      if (fakeNewsArticle) {
+        setResult(fakeNewsArticle);
+        toast.success("News content analyzed successfully");
+      } else {
+        toast.error("No results found");
+      }
+    } catch (error) {
+      console.error("Error analyzing news content:", error);
+      toast.error("Error analyzing news content");
+    } finally {
       setLoading(false);
-    }, 2000);
+    }
   };
 
   return (
@@ -65,7 +82,7 @@ const FakeNewsDetection: React.FC = () => {
               
               <Button 
                 onClick={handleAnalysis} 
-                disabled={!newsText || loading}
+                disabled={!newsText || loading || !isInitialized}
                 className="flex items-center gap-2"
               >
                 {loading ? (
