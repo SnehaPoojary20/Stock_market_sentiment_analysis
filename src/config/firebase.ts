@@ -5,13 +5,13 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyA1D6tZkWm_oUypWWWU7e8EJ0MysF_eJW8",
-  authDomain: "market-mood-analyzer.firebaseapp.com",
-  projectId: "market-mood-analyzer",
-  storageBucket: "market-mood-analyzer.appspot.com",
-  messagingSenderId: "426934177801",
-  appId: "1:426934177801:web:4ef22e27ce790ccd7e85a4",
-  measurementId: "G-E1X20F7HZK"
+  apiKey: process.env.FIREBASE_API_KEY || "YOUR_API_KEY",
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN || "YOUR_AUTH_DOMAIN",
+  projectId: process.env.FIREBASE_PROJECT_ID || "YOUR_PROJECT_ID",
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET || "YOUR_STORAGE_BUCKET",
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "YOUR_MESSAGING_SENDER_ID",
+  appId: process.env.FIREBASE_APP_ID || "YOUR_APP_ID",
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID || "YOUR_MEASUREMENT_ID"
 };
 
 // Initialize Firebase

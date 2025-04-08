@@ -33,6 +33,7 @@ export const initializeFirestore = async () => {
     // Check if sentiment data exists
     const sentimentSnapshot = await getDocs(collection(db, "sentimentResults"));
     if (sentimentSnapshot.empty) {
+      console.log("Initializing sentiment data in Firestore...");
       const sentimentData = require("../data/sentimentData.json").results;
       
       // Add sentiment data to Firestore
@@ -40,11 +41,14 @@ export const initializeFirestore = async () => {
         await addDoc(collection(db, "sentimentResults"), result);
       }
       console.log("Sentiment data initialized in Firestore");
+    } else {
+      console.log("Sentiment data already exists in Firestore");
     }
 
     // Check if fake news data exists
     const fakeNewsSnapshot = await getDocs(collection(db, "fakeNewsArticles"));
     if (fakeNewsSnapshot.empty) {
+      console.log("Initializing fake news data in Firestore...");
       const fakeNewsData = require("../data/fakeNewsData.json").articles;
       
       // Add fake news data to Firestore
@@ -52,6 +56,8 @@ export const initializeFirestore = async () => {
         await addDoc(collection(db, "fakeNewsArticles"), article);
       }
       console.log("Fake news data initialized in Firestore");
+    } else {
+      console.log("Fake news data already exists in Firestore");
     }
   } catch (error) {
     console.error("Error initializing Firestore:", error);
