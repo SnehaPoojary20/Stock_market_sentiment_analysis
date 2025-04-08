@@ -30,6 +30,8 @@ export interface FakeNewsArticle {
 // Initialize Firestore with mock data if needed
 export const initializeFirestore = async () => {
   try {
+    console.log("Initializing Firestore connection...");
+    
     // Check if sentiment data exists
     const sentimentSnapshot = await getDocs(collection(db, "sentimentResults"));
     if (sentimentSnapshot.empty) {
@@ -59,6 +61,8 @@ export const initializeFirestore = async () => {
     } else {
       console.log("Fake news data already exists in Firestore");
     }
+    
+    console.log("Firestore initialization complete");
   } catch (error) {
     console.error("Error initializing Firestore:", error);
   }
