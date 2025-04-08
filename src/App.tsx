@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import SentimentAnalysis from "./pages/SentimentAnalysis";
 import FakeNewsDetection from "./pages/FakeNewsDetection";
 import Chatbot from "./pages/Chatbot";
+import DataExplorer from "./pages/DataExplorer";
 import NotFound from "./pages/NotFound";
 
 // Create QueryClient instance outside of the component
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/sentiment" element={<SentimentAnalysis />} />
           <Route path="/fake-news" element={<FakeNewsDetection />} />
           <Route path="/chatbot" element={<Chatbot />} />
+          <Route path="/data-explorer" element={<DataExplorer />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

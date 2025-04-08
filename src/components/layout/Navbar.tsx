@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BarChart2, MessageSquare, FileText, Upload, Home, TrendingUp } from 'lucide-react';
+import { BarChart2, MessageSquare, FileText, Upload, Home, TrendingUp, Database } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -48,6 +48,7 @@ const Navbar: React.FC = () => {
         <NavItem to="/sentiment" icon={Upload} label="Sentiment Analysis" id="sentiment" />
         <NavItem to="/fake-news" icon={FileText} label="Fake News Detection" id="fake-news" />
         <NavItem to="/chatbot" icon={MessageSquare} label="Market Assistant" id="chatbot" />
+        <NavItem to="/data-explorer" icon={Database} label="Data Explorer" id="data-explorer" />
       </div>
     </nav>
   );
