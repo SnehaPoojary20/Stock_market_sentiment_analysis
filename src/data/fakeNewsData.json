@@ -1,0 +1,65 @@
+
+{
+  "articles": [
+    {
+      "id": 1,
+      "verdict": "fake",
+      "confidence": 92,
+      "explanation": "This content shows multiple red flags indicative of fake news, including sensationalized claims, lack of verifiable sources, and emotional manipulation.",
+      "factors": [
+        { "factor": "Unverifiable claims", "impact": "high" },
+        { "factor": "Emotional language", "impact": "high" },
+        { "factor": "Lack of named sources", "impact": "medium" },
+        { "factor": "Inconsistent details", "impact": "low" }
+      ]
+    },
+    {
+      "id": 2,
+      "verdict": "real",
+      "confidence": 87,
+      "explanation": "This news article appears to be legitimate based on verifiable facts, consistent reporting style, and credible sources.",
+      "factors": [
+        { "factor": "Consistent with official statements", "impact": "high" },
+        { "factor": "Reputable source attribution", "impact": "high" },
+        { "factor": "Balanced reporting style", "impact": "medium" },
+        { "factor": "Specific dates and verifiable details", "impact": "medium" }
+      ]
+    },
+    {
+      "id": 3,
+      "verdict": "fake",
+      "confidence": 96,
+      "explanation": "This content demonstrates classic fake news characteristics with excessive hyperbole, conspiracy theory elements, and misleading context.",
+      "factors": [
+        { "factor": "Conspiracy theory narratives", "impact": "high" },
+        { "factor": "Excessive hyperbole", "impact": "high" },
+        { "factor": "Out-of-context quotes", "impact": "medium" },
+        { "factor": "Circular sourcing", "impact": "medium" }
+      ]
+    },
+    {
+      "id": 4,
+      "verdict": "real",
+      "confidence": 91,
+      "explanation": "This article presents a balanced view with well-attributed quotes, verifiable statistics, and proper context for the information presented.",
+      "factors": [
+        { "factor": "Multiple verified sources", "impact": "high" },
+        { "factor": "Statistical data from reputable organizations", "impact": "high" },
+        { "factor": "Balanced presentation of viewpoints", "impact": "medium" },
+        { "factor": "Appropriate context", "impact": "medium" }
+      ]
+    },
+    {
+      "id": 5,
+      "verdict": "fake",
+      "confidence": 88,
+      "explanation": "This content uses manipulative language and logical fallacies to present misleading information without proper sourcing.",
+      "factors": [
+        { "factor": "Appeal to emotions over facts", "impact": "high" },
+        { "factor": "Logical fallacies", "impact": "medium" },
+        { "factor": "Anonymous sources", "impact": "medium" },
+        { "factor": "Lack of expert consultation", "impact": "low" }
+      ]
+    }
+  ]
+}

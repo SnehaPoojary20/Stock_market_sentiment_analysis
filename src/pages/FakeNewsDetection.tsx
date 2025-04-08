@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Shield, ShieldAlert, FileText } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
+import fakeNewsData from '@/data/fakeNewsData.json';
 
 const FakeNewsDetection: React.FC = () => {
   const [newsText, setNewsText] = useState('');
@@ -25,37 +25,11 @@ const FakeNewsDetection: React.FC = () => {
     
     setLoading(true);
     
-    // In a real application, this would be an API call
+    // Simulate API call but use our dataset
     setTimeout(() => {
-      // Mock result - randomly choose real or fake for demo purposes
-      const isReal = Math.random() > 0.5;
-      
-      if (isReal) {
-        setResult({
-          verdict: 'real',
-          confidence: 87,
-          explanation: 'This news article appears to be legitimate based on verifiable facts, consistent reporting style, and credible sources.',
-          factors: [
-            { factor: 'Consistent with official statements', impact: 'high' },
-            { factor: 'Reputable source attribution', impact: 'high' },
-            { factor: 'Balanced reporting style', impact: 'medium' },
-            { factor: 'Specific dates and verifiable details', impact: 'medium' },
-          ]
-        });
-      } else {
-        setResult({
-          verdict: 'fake',
-          confidence: 92,
-          explanation: 'This content shows multiple red flags indicative of fake news, including sensationalized claims, lack of verifiable sources, and emotional manipulation.',
-          factors: [
-            { factor: 'Unverifiable claims', impact: 'high' },
-            { factor: 'Emotional language', impact: 'high' },
-            { factor: 'Lack of named sources', impact: 'medium' },
-            { factor: 'Inconsistent details', impact: 'low' },
-          ]
-        });
-      }
-      
+      // Get a random article from our dataset
+      const randomIndex = Math.floor(Math.random() * fakeNewsData.articles.length);
+      setResult(fakeNewsData.articles[randomIndex]);
       setLoading(false);
     }, 2000);
   };

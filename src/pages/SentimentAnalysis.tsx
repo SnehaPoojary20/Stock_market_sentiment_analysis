@@ -1,12 +1,12 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Upload, FileText, Image, BarChart2 } from 'lucide-react';
+import { Upload, FileText, BarChart2 } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import { PieChart, Pie, ResponsiveContainer, Cell, Legend, Tooltip } from 'recharts';
+import sentimentData from '@/data/sentimentData.json';
 
 const SentimentAnalysis: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -29,20 +29,11 @@ const SentimentAnalysis: React.FC = () => {
     
     setLoading(true);
     
-    // In a real application, this would be an API call
+    // Simulate API call but use our dataset
     setTimeout(() => {
-      // Mock result
-      setResult({
-        overall: 'positive',
-        score: 0.78,
-        emotions: [
-          { name: 'Optimism', value: 45, color: '#10B981' },
-          { name: 'Trust', value: 30, color: '#3B82F6' },
-          { name: 'Fear', value: 15, color: '#F59E0B' },
-          { name: 'Anxiety', value: 10, color: '#DC2626' },
-        ],
-        summary: 'The uploaded content shows overall positive sentiment, with high levels of optimism and trust, alongside lower levels of fear and anxiety.'
-      });
+      // Get a random result from our dataset
+      const randomIndex = Math.floor(Math.random() * sentimentData.results.length);
+      setResult(sentimentData.results[randomIndex]);
       setLoading(false);
     }, 2000);
   };
@@ -52,20 +43,11 @@ const SentimentAnalysis: React.FC = () => {
     
     setLoading(true);
     
-    // In a real application, this would be an API call
+    // Simulate API call but use our dataset
     setTimeout(() => {
-      // Mock result
-      setResult({
-        overall: 'neutral',
-        score: 0.52,
-        emotions: [
-          { name: 'Trust', value: 35, color: '#3B82F6' },
-          { name: 'Optimism', value: 25, color: '#10B981' },
-          { name: 'Anxiety', value: 25, color: '#F59E0B' },
-          { name: 'Fear', value: 15, color: '#DC2626' },
-        ],
-        summary: 'The text displays a balanced sentiment with a slight positive lean. Trust is the predominant emotion, with equal measures of optimism and anxiety.'
-      });
+      // Get a random result from our dataset
+      const randomIndex = Math.floor(Math.random() * sentimentData.results.length);
+      setResult(sentimentData.results[randomIndex]);
       setLoading(false);
     }, 1500);
   };
